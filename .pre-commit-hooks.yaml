@@ -1,0 +1,8 @@
+-   id: check-json-schemas
+    name: checks domain json schemas
+    description: prevents invalid jsonschemas to be added to domains
+    entry: check-json-schemas
+    files: ^.*schemas/
+    types: [json]
+    language: python
+    stages: [commit]

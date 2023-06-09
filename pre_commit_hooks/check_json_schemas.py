@@ -1,8 +1,8 @@
 from __future__ import annotations
-from jsonschema import validate, SchemaError, ValidationError, Draft202012Validator
 from typing import Sequence
 import argparse
 import json
+from fastjsonschema import compile, JsonSchemaDefinitionException, JsonSchemaException
 
 def main(argv: Sequence[str] | None = None) -> int:
     retval = 0
@@ -13,11 +13,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     for filename in args.filenames:
         try:
             with open(filename, 'rb') as f:
-                validate(instance={}, schema=json.load(f), format_checker=Draft202012Validator.FORMAT_CHECKER,)
-        except SchemaError as e:
+                schema = json.load(f)
+                compile(schema)
+        except JsonSchemaDefinitionException as e:
             print(f'{filename}: invalid schema: {e}')
             retval = 1
-        except ValidationError:
+        except JsonSchemaException:
             None
     return retval
 

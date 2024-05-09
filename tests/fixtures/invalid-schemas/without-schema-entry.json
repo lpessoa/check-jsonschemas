@@ -1,0 +1,13 @@
+{
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "title": {
+      "id": "http://jsonschema.net/title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}
